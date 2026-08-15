@@ -1,0 +1,53 @@
+<UserControl x:Class="JSL_SentinelPro.src.UI.Views.AyudaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24" MaxWidth="700" HorizontalAlignment="Left">
+            <TextBlock Text="Ayuda y Soporte" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+            <!-- Busqueda -->
+            <Border Style="{StaticResource CardStyle}" Padding="12" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Buscar en FAQ" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxBase}" Width="400" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- FAQs -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Preguntas Frecuentes" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    <ItemsControl ItemsSource="{Binding Faqs}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Expander Header="{Binding Question}" Margin="0,4">
+                                    <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" Margin="12,4" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                </Expander>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- Contacto -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Contacto de Soporte" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    <TextBlock><Run Text="Email: "/><Run Text="{Binding SupportEmail}"/></TextBlock>
+                    <TextBlock Margin="0,4"><Run Text="Telefono: "/><Run Text="{Binding SupportPhone}"/></TextBlock>
+                    <Button Content="Contactar Soporte" Command="{Binding ContactSupportCommand}" Style="{StaticResource ButtonPrimary}" Margin="0,12,0,0" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Tutoriales -->
+            <Border Style="{StaticResource CardStyle}" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Documentacion" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Ver Documentacion" Command="{Binding OpenDocsCommand}" Style="{StaticResource ButtonSecondary}" Margin="0,0,8,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

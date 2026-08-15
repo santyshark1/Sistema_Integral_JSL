@@ -1,0 +1,31 @@
+<Application x:Class="JSL_SentinelPro.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:JSL_SentinelPro.src.UI.Converters"
+             StartupUri="MainWindow.xaml"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Controls.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Converters -->
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <converters:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
+            <converters:BoolToActiveTextConverter x:Key="BoolToActiveTextConverter"/>
+            <converters:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
+            <converters:RiskToBrushConverter x:Key="RiskToBrushConverter"/>
+            <converters:NameToInitialsConverter x:Key="NameToInitialsConverter"/>
+            <converters:BoolToAvailableTextConverter x:Key="BoolToAvailableTextConverter"/>
+            <converters:ScanningToButtonTextConverter x:Key="ScanningToButtonTextConverter"/>
+            <converters:StringToBrushConverter x:Key="StringToBrushConverter"/>
+            <converters:MessageToBrushConverter x:Key="MessageToBrushConverter"/>
+            <converters:BytesToGBConverter x:Key="BytesToGBConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

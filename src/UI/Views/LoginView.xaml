@@ -1,0 +1,67 @@
+<UserControl x:Class="JSL_SentinelPro.src.UI.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource BackgroundBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,40,0,20">
+            <TextBlock Text="JSL" FontSize="48" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center"/>
+            <TextBlock Text="Sistema Integral de Diagnostico, Mantenimiento Preventivo y Ciberseguridad"
+                       FontSize="16" Foreground="{StaticResource TextSecondaryBrush}" TextAlignment="Center" Margin="0,4,0,0" TextWrapping="Wrap" MaxWidth="500"/>
+            <TextBlock Text="Proteccion inteligente para tu equipo" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"
+                       TextAlignment="Center" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <!-- Card de login -->
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" MaxWidth="420" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+            <StackPanel>
+                <TextBlock Text="Acceso al Sistema" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Usuario" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxBase}" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Contrasena" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                <PasswordBox x:Name="PasswordBox" Style="{StaticResource PasswordBoxBase}" Margin="0,0,0,8"
+                             PasswordChanged="PasswordBox_PasswordChanged"/>
+
+                <CheckBox IsChecked="{Binding RememberMe}" Content="Recordarme en este dispositivo" Margin="0,4,0,12"
+                          Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
+
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}" FontSize="12" TextWrapping="Wrap"
+                           Margin="0,0,0,8" Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+
+                <Button Content="Iniciar Sesion" Command="{Binding LoginCommand}" Style="{StaticResource ButtonPrimary}" Margin="0,0,0,8" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"/>
+                <ProgressBar IsIndeterminate="True" Height="4" Margin="0,0,0,8" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <Separator Margin="0,8"/>
+                <Button Content="Crear Nueva Cuenta" Command="{Binding NavigateToRegisterCommand}" Style="{StaticResource ButtonSecondary}" Margin="0,8,0,0"/>
+
+                <TextBlock HorizontalAlignment="Center" Margin="0,12,0,0">
+                    <Hyperlink Command="{Binding NavigateToPasswordResetCommand}">
+                        <TextBlock Text="¿Olvidaste tu contrasena? Restablecela aqui" FontSize="12" Foreground="{StaticResource PrimaryBrush}"/>
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+
+        <!-- Footer -->
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <TextBlock Text="Tus datos estan protegidos mediante autenticacion cifrada" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" TextAlignment="Center" Margin="0,0,0,8"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="AYUDA" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="8,0"/>
+                <TextBlock Text="|" FontSize="11" Foreground="{StaticResource BorderBrush}"/>
+                <TextBlock Text="PRIVACIDAD" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="8,0"/>
+                <TextBlock Text="|" FontSize="11" Foreground="{StaticResource BorderBrush}"/>
+                <TextBlock Text="TERMINOS" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="8,0"/>
+            </StackPanel>
+            <TextBlock Text="© 2024 SentinelPro Technologies. Todos los derechos reservados. Sistema monitoreado 24/7"
+                       FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" TextAlignment="Center" Margin="0,8,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

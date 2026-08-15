@@ -1,0 +1,91 @@
+<Window x:Class="JSL_SentinelPro.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="JSL SentinelPro - Sistema Integral de Diagnostico, Mantenimiento Preventivo y Ciberseguridad"
+        Height="768" Width="1366"
+        MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundBrush}">
+    <Window.DataContext>
+        <Binding Path="MainViewModel" Source="{x:Static Application.Current}"/>
+    </Window.DataContext>
+    <Grid>
+        <!-- Vista NO autenticada: muestra login/register directamente -->
+        <ContentControl Content="{Binding CurrentView}" Visibility="{Binding IsAuthenticated, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+
+        <!-- Vista autenticada: layout con sidebar -->
+        <Grid Visibility="{Binding IsAuthenticated, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Sidebar -->
+            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Background="{StaticResource SidebarBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20,16,20,24">
+                        <Border Width="36" Height="36" Background="{StaticResource PrimaryBrush}" CornerRadius="6,6,6,6">
+                            <TextBlock Text="J" FontSize="18" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Text="JSL SentinelPro" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <TextBlock Text="Sistema Integral" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button Content="🏠 Inicio" Command="{Binding NavigateToDashboardCommand}" Style="{StaticResource NavButtonStyle}" Tag="Inicio"/>
+                    <Button Content="📊 Diagnostico" Command="{Binding NavigateToDiagnosticoCommand}" Style="{StaticResource NavButtonStyle}" Tag="Diagnostico"/>
+                    <Button Content="🛡️ Ciberseguridad" Command="{Binding NavigateToCiberseguridadCommand}" Style="{StaticResource NavButtonStyle}" Tag="Ciberseguridad"/>
+                    <Button Content="🔧 Mantenimiento" Command="{Binding NavigateToMantenimientoCommand}" Style="{StaticResource NavButtonStyle}" Tag="Mantenimiento"/>
+                    <Button Content="📈 Reportes" Command="{Binding NavigateToReportesCommand}" Style="{StaticResource NavButtonStyle}" Tag="Reportes"/>
+                    <Button Content="👥 Usuarios" Command="{Binding NavigateToUsuariosCommand}" Style="{StaticResource NavButtonStyle}" Tag="Usuarios"/>
+                    <Button Content="🏢 Empresas" Command="{Binding NavigateToEmpresasCommand}" Style="{StaticResource NavButtonStyle}" Tag="Empresas"/>
+                    <Button Content="⚙️ Configuracion" Command="{Binding NavigateToConfiguracionCommand}" Style="{StaticResource NavButtonStyle}" Tag="Configuracion"/>
+                    <Button Content="❓ Ayuda" Command="{Binding NavigateToAyudaCommand}" Style="{StaticResource NavButtonStyle}" Tag="Ayuda"/>
+
+                    <Separator Margin="16,8"/>
+
+                    <Button Content="🚪 Cerrar sesion" Command="{Binding LogoutCommand}" Style="{StaticResource NavButtonStyle}" Tag="Cerrar sesion"/>
+
+                    <StackPanel VerticalAlignment="Bottom" Margin="20">
+                        <TextBlock Text="© 2024 SentinelPro" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource HeaderBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+                <Grid Margin="20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding CurrentViewName}" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding CurrentUser.FullName}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <Border Width="32" Height="32" Background="{StaticResource PrimaryLightBrush}" CornerRadius="6,6,6,6">
+                            <TextBlock Text="{Binding CurrentUser.FullName, Converter={StaticResource NameToInitialsConverter}}" FontSize="12" FontWeight="Bold"
+                                       Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <Border Background="{StaticResource DangerBrush}" CornerRadius="6,6,6,6" Padding="6,2" Margin="8,0,0,0"
+                                Visibility="{Binding HasCriticalAlerts, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <TextBlock Text="{Binding AlertCount}" FontSize="10" Foreground="White" FontWeight="Bold"/>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Contenido -->
+            <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource BackgroundBrush}">
+                <ContentControl Content="{Binding CurrentView}" Margin="0"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

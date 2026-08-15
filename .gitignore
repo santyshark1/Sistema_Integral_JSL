@@ -1,0 +1,25 @@
+# Build outputs (.NET)
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+publish/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*_wpftmp.csproj
+
+# Paquetes NuGet restaurados (se recuperan solos con "dotnet restore")
+packages/
+TEMP_LIB/
+Librerias/
+lib/
+
+# Base de datos y config locales
+*.db
+*.db-shm
+*.db-wal
+config.json

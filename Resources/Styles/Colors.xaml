@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Colores primarios -->
+    <Color x:Key="PrimaryColor">#0078D4</Color>
+    <Color x:Key="PrimaryDarkColor">#005A9E</Color>
+    <Color x:Key="PrimaryLightColor">#E3F2FD</Color>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+    <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLightColor}"/>
+
+    <!-- Colores de estado -->
+    <Color x:Key="SuccessColor">#22C55E</Color>
+    <Color x:Key="WarningColor">#F59E0B</Color>
+    <Color x:Key="DangerColor">#EF4444</Color>
+    <Color x:Key="InfoColor">#3B82F6</Color>
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+    <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource DangerColor}"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="{StaticResource InfoColor}"/>
+
+    <!-- Colores neutros -->
+    <Color x:Key="BackgroundColor">#F5F5F5</Color>
+    <Color x:Key="CardBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="TextPrimaryColor">#1F2937</Color>
+    <Color x:Key="TextSecondaryColor">#6B7280</Color>
+    <Color x:Key="BorderColor">#E5E7EB</Color>
+    <Color x:Key="SidebarColor">#FFFFFF</Color>
+    <Color x:Key="HeaderColor">#FFFFFF</Color>
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="{StaticResource CardBackgroundColor}"/>
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}"/>
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="SidebarBrush" Color="{StaticResource SidebarColor}"/>
+    <SolidColorBrush x:Key="HeaderBrush" Color="{StaticResource HeaderColor}"/>
+
+    <!-- Colores de fondo para estados -->
+    <SolidColorBrush x:Key="SuccessBackgroundBrush" Color="#DCFCE7"/>
+    <SolidColorBrush x:Key="WarningBackgroundBrush" Color="#FEF3C7"/>
+    <SolidColorBrush x:Key="DangerBackgroundBrush" Color="#FEE2E2"/>
+    <SolidColorBrush x:Key="InfoBackgroundBrush" Color="#DBEAFE"/>
+
+    <!-- Tipografia -->
+    <FontFamily x:Key="FontFamilyBase">Segoe UI, Arial, sans-serif</FontFamily>
+    <sys:Double x:Key="FontSizeSmall" xmlns:sys="clr-namespace:System;assembly=mscorlib">12</sys:Double>
+    <sys:Double x:Key="FontSizeBase" xmlns:sys="clr-namespace:System;assembly=mscorlib">14</sys:Double>
+    <sys:Double x:Key="FontSizeMedium" xmlns:sys="clr-namespace:System;assembly=mscorlib">16</sys:Double>
+    <sys:Double x:Key="FontSizeLarge" xmlns:sys="clr-namespace:System;assembly=mscorlib">20</sys:Double>
+    <sys:Double x:Key="FontSizeXLarge" xmlns:sys="clr-namespace:System;assembly=mscorlib">24</sys:Double>
+
+    <!-- Sombras y efectos -->
+    <DropShadowEffect x:Key="CardShadow" ShadowDepth="2" BlurRadius="8" Opacity="0.08" Direction="270" Color="Black"/>
+    <DropShadowEffect x:Key="DropdownShadow" ShadowDepth="4" BlurRadius="16" Opacity="0.12" Direction="270" Color="Black"/>
+
+    <!-- Radios de borde -->
+    <sys:Double x:Key="BorderRadiusSmall" xmlns:sys="clr-namespace:System;assembly=mscorlib">4</sys:Double>
+    <sys:Double x:Key="BorderRadiusMedium" xmlns:sys="clr-namespace:System;assembly=mscorlib">6</sys:Double>
+    <sys:Double x:Key="BorderRadiusLarge" xmlns:sys="clr-namespace:System;assembly=mscorlib">8</sys:Double>
+    <sys:Double x:Key="BorderRadiusXLarge" xmlns:sys="clr-namespace:System;assembly=mscorlib">12</sys:Double>
+
+    <!-- Dimensiones comunes -->
+    <sys:Double x:Key="SidebarWidth" xmlns:sys="clr-namespace:System;assembly=mscorlib">260</sys:Double>
+    <sys:Double x:Key="HeaderHeight" xmlns:sys="clr-namespace:System;assembly=mscorlib">64</sys:Double>
+    <sys:Double x:Key="InputHeight" xmlns:sys="clr-namespace:System;assembly=mscorlib">40</sys:Double>
+
+</ResourceDictionary>

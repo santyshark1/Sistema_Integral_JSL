@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual de Usuario - JSL SentinelPro</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1f2937; }
+        h1 { color: #0078D4; border-bottom: 2px solid #0078D4; padding-bottom: 10px; }
+        h2 { color: #005A9E; margin-top: 30px; }
+        h3 { color: #374151; }
+        code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 0.95em; }
+        pre { background: #f3f4f6; padding: 12px; border-radius: 8px; overflow-x: auto; }
+        .note { background: #e3f2fd; border-left: 4px solid #0078D4; padding: 12px; margin: 16px 0; border-radius: 4px; }
+        .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; margin: 16px 0; border-radius: 4px; }
+        .critical { background: #fee2e2; border-left: 4px solid #ef4444; padding: 12px; margin: 16px 0; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+        th, td { border: 1px solid #e5e7eb; padding: 10px; text-align: left; }
+        th { background: #f3f4f6; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <h1>Manual de Usuario - JSL SentinelPro</h1>
+    <p><strong>Version 1.0.0</strong> | SentinelPro Technologies | 2024</p>
+
+    <h2>1. Introduccion</h2>
+    <p>JSL SentinelPro es un sistema integral para Windows que permite monitorear el hardware de su PC en tiempo real, ejecutar escaneos de seguridad con Windows Defender, limpiar y optimizar el sistema, y generar reportes de auditoria.</p>
+
+    <h2>2. Primeros Pasos</h2>
+    <h3>2.1 Inicio de Sesion</h3>
+    <p>Al abrir la aplicacion, ingrese su usuario y contrasena. La cuenta predeterminada de administrador es:</p>
+    <pre>Usuario: admin
+Contrasena: Admin123!</pre>
+    <div class="warning">Cambie la contrasena predeterminada inmediatamente despues del primer inicio de sesion.</div>
+
+    <h3>2.2 Registro de Nuevo Usuario</h3>
+    <p>En la pantalla de inicio, haga clic en <strong>Crear Nueva Cuenta</strong>. Complete todos los campos y acepte los terminos. La cuenta recibira un correo de bienvenida si el SMTP esta configurado.</p>
+
+    <h2>3. Panel de Control (Inicio)</h2>
+    <p>El dashboard muestra en tiempo real:</p>
+    <ul>
+        <li><strong>CPU:</strong> Porcentaje de uso actual</li>
+        <li><strong>RAM:</strong> GB usados y porcentaje de consumo</li>
+        <li><strong>Disco:</strong> Porcentaje de ocupacion del almacenamiento principal</li>
+        <li><strong>Temperatura:</strong> Temperatura maxima detectada por sensores</li>
+        <li><strong>Uptime:</strong> Tiempo desde el ultimo reinicio</li>
+    </ul>
+    <p>Tambien muestra alertas criticas si se detectan valores fuera de rango seguro.</p>
+
+    <h2>4. Diagnostico de Hardware</h2>
+    <p>En esta seccion puede:</p>
+    <ul>
+        <li>Ejecutar un <strong>escaneo completo de 18 componentes</strong> con barra de progreso</li>
+        <li>Ver detalles del procesador, memoria RAM y discos</li>
+        <li>Monitorear <strong>temperaturas reales</strong> de CPU, GPU, motherboard y discos</li>
+        <li>Recibir <strong>recomendaciones preventivas automaticas</strong></li>
+        <li>Consultar historial de escaneos anteriores</li>
+    </ul>
+    <div class="note">Las temperaturas requieren ejecucion como administrador y la presencia de LibreHardwareMonitorLib.dll.</div>
+
+    <h2>5. Ciberseguridad</h2>
+    <p>Integracion con <strong>Windows Defender real</strong> mediante MpCmdRun.exe:</p>
+    <ul>
+        <li><strong>Estado de proteccion:</strong> Muestra si la proteccion en tiempo real esta activa</li>
+        <li><strong>Escaneo heuristico:</strong> Ejecute escaneos completos del sistema con progreso en tiempo real</li>
+        <li><strong>Centro de Incidentes:</strong> Administre amenazas detectadas: Eliminar, Cuarentena o Ignorar</li>
+        <li><strong>Historial:</strong> Amenazas neutralizadas con fecha, tipo y accion tomada</li>
+    </ul>
+    <div class="critical">El escaneo con Windows Defender requiere permisos de administrador. No todos los sistemas tienen acceso a MpCmdRun.exe dependiendo de la configuracion de grupo.</div>
+
+    <h2>6. Mantenimiento y Optimizacion</h2>
+    <h3>6.1 Limpieza del Sistema</h3>
+    <ul>
+        <li>Detecta archivos temporales, caches de navegador y papelera</li>
+        <li>Muestra espacio recuperable estimado en GB</li>
+        <li>Permite seleccionar que categorias limpiar con checkboxes</li>
+        <li>Presione <strong>Limpiar Ahora</strong> para ejecutar la limpieza real</li>
+    </ul>
+
+    <h3>6.2 Optimizacion del Sistema</h3>
+    <ul>
+        <li>Lista programas de inicio y permite deshabilitarlos</li>
+        <li>Ajustes recomendados: efectos visuales, plan de energia, servicios</li>
+        <li>Estimacion de mejora de rendimiento en porcentaje</li>
+        <li><strong>Optimizar Ahora</strong> aplica los ajustes seleccionados</li>
+    </ul>
+
+    <h2>7. Reportes</h2>
+    <p>Estadisticas y auditoria del sistema:</p>
+    <ul>
+        <li><strong>KPIs:</strong> Salud global, amenazas bloqueadas, uptime, mantenimientos</li>
+        <li><strong>Grafico comparativo:</strong> Rendimiento mensual de los ultimos 6 meses</li>
+        <li><strong>Registro de amenazas:</strong> Tabla de las ultimas 48 horas</li>
+        <li><strong>Exportacion:</strong> Descargue datos en CSV o genere reporte PDF</li>
+    </ul>
+
+    <h2>8. Usuarios</h2>
+    <p>(Solo administradores) Gestione cuentas de usuario:</p>
+    <ul>
+        <li>Crear, editar y eliminar usuarios</li>
+        <li>Asignar roles: Usuario estandar o Administrador</li>
+        <li>La cuenta admin predeterminada no puede eliminarse desde esta interfaz</li>
+    </ul>
+
+    <h2>9. Empresas Asociadas</h2>
+    <p>Red de centros tecnicos certificados:</p>
+    <ul>
+        <li>6 centros tecnicos precargados con especialidad, ciudad y rating</li>
+        <li>Filtros por ciudad, especialidad y busqueda por nombre</li>
+        <li>Botones para agendar cita, contactar o solicitar diagnostico</li>
+    </ul>
+
+    <h2>10. Configuracion</h2>
+    <h3>10.1 Correo SMTP</h3>
+    <p>Para habilitar correos de bienvenida y recuperacion:</p>
+    <ol>
+        <li>Use una cuenta Gmail con <strong>App Password</strong> (no su contrasena regular)</li>
+        <li>Genere la App Password en: Administrar cuenta > Seguridad > Verificacion en dos pasos > Contrasenas de aplicacion</li>
+        <li>Configure: Servidor <code>smtp.gmail.com</code>, Puerto <code>587</code>, SSL activo</li>
+        <li>Guarde y pruebe con el boton <strong>Probar Correo</strong></li>
+    </ol>
+
+    <h3>10.2 Preferencias</h3>
+    <ul>
+        <li>Notificaciones activas/desactivadas</li>
+        <li>Inicio automatico con Windows</li>
+        <li>Intervalo de captura de snapshots (minutos)</li>
+    </ul>
+
+    <h2>11. Recuperacion de Contrasena</h2>
+    <ol>
+        <li>En login, haga clic en <strong>¿Olvidaste tu contrasena?</strong></li>
+        <li>Ingrese su correo registrado y solicite el codigo</li>
+        <li>Revise su correo: recibira un <strong>codigo de 6 caracteres</strong> y una <strong>contrasena temporal</strong></li>
+        <li>En la app, seleccione <strong>Ya tengo un codigo</strong></li>
+        <li>Ingrese el codigo, nueva contrasena y confirmacion</li>
+        <li>La nueva contrasena debe tener: 8+ caracteres, mayuscula, numero y simbolo</li>
+    </ol>
+    <div class="warning">El codigo expira en 1 hora. La contrasena temporal expira en 24 horas.</div>
+
+    <h2>12. Ayuda y Soporte</h2>
+    <p>Desde la pestaña Ayuda puede:</p>
+    <ul>
+        <li>Buscar en preguntas frecuentes (FAQ)</li>
+        <li>Contactar soporte tecnico por correo o telefono</li>
+        <li>Acceder a documentacion online y tutoriales</li>
+    </ul>
+
+    <h2>13. Solucion de Problemas Comunes</h2>
+    <table>
+        <tr><th>Problema</th><th>Solucion</th></tr>
+        <tr><td>No muestra temperaturas</td><td>Ejecute como administrador. Verifique que LibreHardwareMonitorLib.dll este en la carpeta lib.</td></tr>
+        <tr><td>Error al enviar correo</td><td>Verifique App Password de Gmail, SSL activo y conexion a internet.</td></tr>
+        <tr><td>Defender no disponible</td><td>Verifique que MpCmdRun.exe exista en C:\Program Files\Windows Defender. Algunas empresas deshabilitan el acceso.</td></tr>
+        <tr><td>La app no inicia</td><td>Verifique permisos de administrador. Revise logs en %LocalAppData%\JSL-SentinelPro\logs\</td></tr>
+        <tr><td>Rendimiento lento</td><td>Reduzca el intervalo de snapshots en Configuracion o desactive graficos en tiempo real.</td></tr>
+    </table>
+
+    <h2>14. Glosario</h2>
+    <table>
+        <tr><th>Termino</th><th>Descripcion</th></tr>
+        <tr><td>BCrypt</td><td>Algoritmo de hash seguro para contrasenas con salt automatico.</td></tr>
+        <tr><td>App Password</td><td>Contrasena de aplicacion de 16 caracteres generada por Google para acceso SMTP.</td></tr>
+        <tr><td>MVVM</td><td>Model-View-ViewModel: patron de arquitectura que separa logica de presentacion.</td></tr>
+        <tr><td>Snapshot</td><td>Captura del estado del sistema en un momento dado (CPU, RAM, disco, temp).</td></tr>
+        <tr><td>Cuarentena</td><td>Aislamiento de archivos sospechosos sin eliminarlos definitivamente.</td></tr>
+    </table>
+
+    <div class="note">
+        <strong>Contacto de Soporte:</strong><br>
+        Email: soporte@sentinelpro.com<br>
+        Telefono: +57 1 800 123 456<br>
+        Horario: Lunes a Viernes, 8:00 a.m. - 6:00 p.m.
+    </div>
+
+    <p style="margin-top:40px; text-align:center; color:#6b7280; font-size:12px;">
+        © 2024 SentinelPro Technologies. Todos los derechos reservados.<br>
+        Sistema monitoreado 24/7.
+    </p>
+</body>
+</html>

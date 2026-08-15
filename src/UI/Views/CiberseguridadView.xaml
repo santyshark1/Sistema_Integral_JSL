@@ -1,0 +1,106 @@
+<UserControl x:Class="JSL_SentinelPro.src.UI.Views.CiberseguridadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+            <TextBlock Text="Ciberseguridad" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+            <!-- Estado proteccion -->
+            <UniformGrid Columns="3" Margin="0,0,0,16">
+                <Border Style="{StaticResource CardStyle}" Padding="16" Margin="6">
+                    <StackPanel>
+                        <TextBlock Text="Proteccion en Tiempo Real" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding IsProtectionActive, Converter={StaticResource BoolToActiveTextConverter}}" FontSize="20" FontWeight="Bold"
+                                   Foreground="{Binding IsProtectionActive, Converter={StaticResource BoolToBrushConverter}}" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Padding="16" Margin="6">
+                    <StackPanel>
+                        <TextBlock Text="Firewall" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding IsFirewallActive, Converter={StaticResource BoolToActiveTextConverter}}" FontSize="20" FontWeight="Bold"
+                                   Foreground="{Binding IsFirewallActive, Converter={StaticResource BoolToBrushConverter}}" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Padding="16" Margin="6">
+                    <StackPanel>
+                        <TextBlock Text="Base de Datos de Virus" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding SignatureVersion}" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Nivel de riesgo -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Nivel de Riesgo General" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBlock Text="{Binding RiskLevel}" FontSize="24" FontWeight="Bold"
+                               Foreground="{Binding RiskLevel, Converter={StaticResource RiskToBrushConverter}}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Escaneo -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Escaneo Heuristico" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <ProgressBar Value="{Binding ScanProgress}" Maximum="100" Height="20" Margin="0,0,0,8"/>
+                    <UniformGrid Columns="3" Margin="0,0,0,8">
+                        <TextBlock><Run Text="Eventos: "/><Run Text="{Binding ItemsChecked}"/></TextBlock>
+                        <TextBlock><Run Text="Amenazas: "/><Run Text="{Binding ThreatsDetected}"/></TextBlock>
+                        <TextBlock><Run Text="Tiempo: "/><Run Text="{Binding ScanTime}"/></TextBlock>
+                    </UniformGrid>
+                    <TextBlock Text="{Binding ScanScope}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,0,0,8"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <Button Content="Iniciar Escaneo" Command="{Binding StartScanCommand}" Style="{StaticResource ButtonPrimary}" Margin="0,0,8,0" IsEnabled="{Binding IsScanning, Converter={StaticResource InverseBoolConverter}}"/>
+                        <Button Content="Detener" Command="{Binding StopScanCommand}" Style="{StaticResource ButtonSecondary}" IsEnabled="{Binding IsScanning}"/>
+                        <Button Content="Generar PDF" Command="{Binding GeneratePdfCommand}" Style="{StaticResource ButtonSecondary}" Margin="8,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Logs -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Registro de Analisis" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <ListBox ItemsSource="{Binding ScanLogs}" MaxHeight="200" BorderThickness="0" Background="Transparent"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Amenazas activas -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Centro de Incidentes - Amenazas Activas" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <DataGrid ItemsSource="{Binding ActiveThreats}" SelectedItem="{Binding SelectedActiveThreat, Mode=TwoWay}" Style="{StaticResource DataGridBase}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="200">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Amenaza" Binding="{Binding ThreatName}" Width="200"/>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding ThreatType}" Width="120"/>
+                            <DataGridTextColumn Header="Ubicacion" Binding="{Binding FilePath}" Width="250"/>
+                            <DataGridTextColumn Header="Severidad" Binding="{Binding Severity}" Width="100"/>
+                            <DataGridTextColumn Header="Estado" Binding="{Binding Status}" Width="110"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                        <Button Content="Eliminar amenaza" Command="{Binding DeleteThreatCommand}" Style="{StaticResource ButtonPrimary}" Margin="0,0,8,0"/>
+                        <Button Content="Enviar a cuarentena" Command="{Binding QuarantineThreatCommand}" Style="{StaticResource ButtonSecondary}" Margin="0,0,8,0"/>
+                        <Button Content="Ignorar" Command="{Binding IgnoreThreatCommand}" Style="{StaticResource ButtonSecondary}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Amenazas neutralizadas -->
+            <Border Style="{StaticResource CardStyle}" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Amenazas Recientes Neutralizadas" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <DataGrid ItemsSource="{Binding NeutralizedThreats}" Style="{StaticResource DataGridBase}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="200">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding DetectionDate, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}" Width="140"/>
+                            <DataGridTextColumn Header="Amenaza" Binding="{Binding ThreatName}" Width="200"/>
+                            <DataGridTextColumn Header="Accion" Binding="{Binding ActionTaken}" Width="100"/>
+                            <DataGridTextColumn Header="Severidad" Binding="{Binding Severity}" Width="100"/>
+                            <DataGridTextColumn Header="Ubicacion" Binding="{Binding FilePath}" Width="260"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

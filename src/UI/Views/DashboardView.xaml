@@ -1,0 +1,89 @@
+<UserControl x:Class="JSL_SentinelPro.src.UI.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+            <TextBlock Text="Panel de Control" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+            <!-- KPIs -->
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+                <Border Style="{StaticResource CardStyle}" Margin="6" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="CPU" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding CpuUsage, StringFormat='{}{0:F1} %', Mode=OneWay}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                        <ProgressBar Value="{Binding CpuUsage, Mode=OneWay}" Maximum="100" Height="6" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Margin="6" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="RAM" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock FontSize="28" FontWeight="Bold" Foreground="{StaticResource InfoBrush}">
+                            <Run Text="{Binding RamUsedGB, StringFormat='{}{0:F1}', Mode=OneWay}"/><Run Text=" / "/><Run Text="{Binding RamTotalGB, StringFormat='{}{0:F1} GB', Mode=OneWay}"/>
+                        </TextBlock>
+                        <ProgressBar Value="{Binding RamPercent, Mode=OneWay}" Maximum="100" Height="6" Margin="0,8,0,0" Foreground="{StaticResource InfoBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Margin="6" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="Ocupacion de Disco" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock FontSize="28" FontWeight="Bold" Foreground="{StaticResource WarningBrush}">
+                            <Run Text="{Binding DiskPercent, StringFormat='{}{0:F1}', Mode=OneWay}"/><Run Text="%"/>
+                        </TextBlock>
+                        <ProgressBar Value="{Binding DiskPercent, Mode=OneWay}" Maximum="100" Height="6" Margin="0,8,0,0" Foreground="{StaticResource WarningBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Margin="6" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="Temperatura" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding Temperature, StringFormat='{}{0:F1} °C', Mode=OneWay}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource DangerBrush}"/>
+                        <TextBlock Text="{Binding UptimeText, Mode=OneWay}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Alertas criticas -->
+            <Border Background="{StaticResource DangerBackgroundBrush}" CornerRadius="6,6,6,6" Padding="16" Margin="0,0,0,20"
+                    Visibility="{Binding HasCriticalAlerts, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel>
+                    <TextBlock Text="⚠ Alertas Criticas Detectadas" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource DangerBrush}"/>
+                    <ItemsControl ItemsSource="{Binding ActiveAlerts}" Margin="0,8,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Message, Mode=OneWay}" FontSize="12" Foreground="{StaticResource DangerBrush}" TextWrapping="Wrap" Margin="0,2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- Grafico de uso -->
+            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,20" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Historial de uso: CPU, RAM y ocupacion de disco" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <lvc:CartesianChart Series="{Binding CpuSeries}" Height="200" ZoomMode="None"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Ultimo escaneo -->
+            <Border Style="{StaticResource CardStyle}" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Ultimo Escaneo de Hardware" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBlock Text="{Binding LastHardwareScan, StringFormat='{}{0:yyyy-MM-dd HH:mm}', Mode=OneWay}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,8"/>
+                    <DataGrid ItemsSource="{Binding RecentScans}" Style="{StaticResource DataGridBase}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="200">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding ScanDate, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}" Width="140"/>
+                            <DataGridTextColumn Header="CPU%" Binding="{Binding CpuUsage, StringFormat='{}{0:F1}'}" Width="80"/>
+                            <DataGridTextColumn Header="Temp C" Binding="{Binding MaxTemperature, StringFormat='{}{0:F1}'}" Width="80"/>
+                            <DataGridTextColumn Header="Estado" Binding="{Binding Status}" Width="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                        <Button Content="Escanear Ahora" Command="{Binding ScanHardwareCommand}" Style="{StaticResource ButtonPrimary}" HorizontalAlignment="Left"/>
+                        <Button Content="Generar PDF" Command="{Binding GenerateScanPdfCommand}" Style="{StaticResource ButtonSecondary}" Margin="8,0,0,0" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

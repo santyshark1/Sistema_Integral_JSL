@@ -1,0 +1,84 @@
+<UserControl x:Class="JSL_SentinelPro.src.UI.Views.ReportesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+            <TextBlock Text="Reportes y Auditoria" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+            <!-- KPIs -->
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+                <Border Style="{StaticResource CardStyle}" Padding="16" Margin="6">
+                    <StackPanel>
+                        <TextBlock Text="Salud Global" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding HealthTrendIcon}" FontSize="18" FontWeight="Bold" Foreground="{Binding HealthTrendColor, Converter={StaticResource StringToBrushConverter}}" Margin="0,8,8,0"/>
+                            <TextBlock Text="{Binding GlobalHealth, StringFormat='{}{0:F1}%'}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding HealthTrendText}" FontSize="11" Foreground="{Binding HealthTrendColor, Converter={StaticResource StringToBrushConverter}}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Padding="16" Margin="6">
+                    <StackPanel>
+                        <TextBlock Text="Amenazas Bloqueadas" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding ThreatsBlocked}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource SuccessBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Padding="16" Margin="6">
+                    <StackPanel>
+                        <TextBlock Text="Uptime Mensual" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding MonthlyUptime, StringFormat='{}{0:F1}%'}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource InfoBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Padding="16" Margin="6">
+                    <StackPanel>
+                        <TextBlock Text="Mantenimientos" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding MaintenanceCount}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource WarningBrush}"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Grafico comparativo -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Comparacion Mensual de Rendimiento" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <lvc:CartesianChart Series="{Binding PerformanceSeries}" Height="250" ZoomMode="None"/>
+                    <TextBlock Text="{Binding PerformanceInsight}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Amenazas recientes -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Registro de Amenazas Detectadas (48h)" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <DataGrid ItemsSource="{Binding RecentThreats}" Style="{StaticResource DataGridBase}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="250">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding DetectionDate, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}" Width="140"/>
+                            <DataGridTextColumn Header="Amenaza" Binding="{Binding ThreatName}" Width="180"/>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding ThreatType}" Width="120"/>
+                            <DataGridTextColumn Header="Origen" Binding="{Binding FilePath}" Width="200"/>
+                            <DataGridTextColumn Header="Estado" Binding="{Binding Status}" Width="100"/>
+                            <DataGridTextColumn Header="Severidad" Binding="{Binding Severity}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+
+            <!-- Resumen tecnico -->
+            <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Resumen Tecnico del Sistema" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBlock><Run Text="Procesador: "/><Run Text="{Binding SystemProcessor}"/></TextBlock>
+                    <TextBlock Margin="0,4"><Run Text="Sistema Operativo: "/><Run Text="{Binding OsVersion}"/></TextBlock>
+                    <TextBlock Text="{Binding TechnicalSummary}" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Botones exportar -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <Button Content="Exportar Datos (CSV)" Command="{Binding ExportCsvCommand}" Style="{StaticResource ButtonPrimary}" Margin="0,0,8,0"/>
+                <Button Content="Generar Reporte PDF" Command="{Binding GeneratePdfCommand}" Style="{StaticResource ButtonSecondary}"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
