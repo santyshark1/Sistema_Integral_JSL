@@ -76,37 +76,50 @@ namespace JSL_SentinelPro.src.UI.ViewModels
             HasScanResults = true;
         }
 
+        private void ReportProgress(int done, int total, DateTime startTime)
+        {
+            ComponentsAnalyzed = done;
+            ScanProgress = done * 100.0 / total;
+            var elapsed = DateTime.Now - startTime;
+            var remaining = done > 0
+                ? TimeSpan.FromSeconds(elapsed.TotalSeconds / done * (total - done))
+                : TimeSpan.Zero;
+            TimeRemaining = $"{remaining.Minutes}:{remaining.Seconds:D2}";
+        }
+
         private async Task StartScanAsync()
         {
             IsScanning = true;
             ScanProgress = 0;
             ComponentsAnalyzed = 0;
-            TimeRemaining = "Calculando...";
+            TimeRemaining = "Analizando...";
             HasScanResults = false;
-            var cts = new CancellationTokenSource();
             var startTime = DateTime.Now;
 
-            var components = new[] {
-                "Procesador", "Nucleos CPU", "Hilos CPU", "Velocidad reloj",
-                "Memoria RAM Total", "Memoria RAM Usada", "Disco Principal",
-                "Disco Secundario", "SSD/HDD", "Temperatura CPU",
-                "Temperatura GPU", "Ventiladores", "Red Ethernet",
-                "Red WiFi", "Direccion IP", "MAC Address",
-                "Tiempo de actividad", "Rendimiento Global"
-            };
+            // Fases REALES del escaneo. Cada lectura de hardware se ejecuta en segundo
+            // plano (Task.Run) para no congelar la UI; el 'await' devuelve el control al
+            // hilo de UI, donde se asigna la propiedad enlazada. El progreso refleja
+            // trabajo real, no un retardo artificial.
+            TotalComponents = 4;
 
-            for (int i = 0; i < components.Length; i++)
-            {
-                if (cts.IsCancellationRequested) break;
-                await Task.Delay(500);
-                ComponentsAnalyzed = i + 1;
-                ScanProgress = (i + 1) * 100.0 / components.Length;
-                var elapsed = DateTime.Now - startTime;
-                var remaining = TimeSpan.FromSeconds(elapsed.TotalSeconds / (i + 1) * (components.Length - i - 1));
-                TimeRemaining = $"{remaining.Minutes}:{remaining.Seconds:D2}";
-            }
+            var cpu = await Task.Run(() => _hardware.GetCpuInfo());
+            CpuInfo = cpu;
+            ReportProgress(1, TotalComponents, startTime);
 
-            RefreshHardware();
+            var memory = await Task.Run(() => _hardware.GetMemoryInfo());
+            MemoryInfo = memory;
+            ReportProgress(2, TotalComponents, startTime);
+
+            var disks = await Task.Run(() => _hardware.GetDiskInfo());
+            Disks = new ObservableCollection<DiskInfo>(disks);
+            ReportProgress(3, TotalComponents, startTime);
+
+            var temps = await Task.Run(() => _temperature.GetAllTemperatures());
+            Temperatures = new ObservableCollection<TemperatureReading>(temps);
+            ReportProgress(4, TotalComponents, startTime);
+
+            GenerateRecommendations();
+            HasScanResults = true;
             HasStartedScan = true;
             System.Windows.Input.CommandManager.InvalidateRequerySuggested();
 

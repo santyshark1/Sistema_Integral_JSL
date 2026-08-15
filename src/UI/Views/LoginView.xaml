@@ -60,7 +60,7 @@
                 <TextBlock Text="|" FontSize="11" Foreground="{StaticResource BorderBrush}"/>
                 <TextBlock Text="TERMINOS" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="8,0"/>
             </StackPanel>
-            <TextBlock Text="© 2024 SentinelPro Technologies. Todos los derechos reservados. Sistema monitoreado 24/7"
+            <TextBlock Text="© 2026 JSL SentinelPro. Todos los derechos reservados."
                        FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" TextAlignment="Center" Margin="0,8,0,0"/>
         </StackPanel>
     </Grid>

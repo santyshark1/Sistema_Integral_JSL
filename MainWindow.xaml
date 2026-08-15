@@ -55,7 +55,7 @@
                     <Button Content="🚪 Cerrar sesion" Command="{Binding LogoutCommand}" Style="{StaticResource NavButtonStyle}" Tag="Cerrar sesion"/>
 
                     <StackPanel VerticalAlignment="Bottom" Margin="20">
-                        <TextBlock Text="© 2024 SentinelPro" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="© 2026 JSL SentinelPro" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
